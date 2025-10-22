@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 
 public class TodoItem implements Comparable<TodoItem> {
     
-    // 1. 변수 (데이터)
+    // 1. 변수
     private int id;             
     private String description;  
     private boolean isDone;     

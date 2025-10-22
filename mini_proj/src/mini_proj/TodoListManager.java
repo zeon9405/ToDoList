@@ -18,7 +18,7 @@ public class TodoListManager {
         this.scanner = new Scanner(System.in);
     }
 
-    // 1. 메인 실행 루프 (변경 없음)
+    // 1. 메인 실행 루프
     public void start() {
         System.out.println("⭐ 텍스트 기반 할 일 목록 관리 시스템을 시작합니다. ⭐");
         
@@ -37,7 +37,7 @@ public class TodoListManager {
                     markAsDone();
                     break;
                 case 4:
-                    deleteTodoItem(); // ⭐ 4번 메뉴 수정됨
+                    deleteTodoItem();
                     break;
                 case 7: 
                     exitProgram();
@@ -49,7 +49,7 @@ public class TodoListManager {
         }
     }
 
-    // 메뉴 출력 (변경 없음)
+    // 메뉴 출력
     private void displayMenu() {
         System.out.println("\n===== To-Do List 메뉴 =====");
         System.out.println("1. 할 일 추가");
@@ -60,7 +60,7 @@ public class TodoListManager {
         System.out.println("===========================");
     }
 
-    // 2. 할 일 추가 기능 (변경 없음)
+    // 2. 할 일 추가 기능
     private void addTodoItem() {
         System.out.print("추가할 할 일 내용을 입력하세요 (0 입력 시 취소): ");
         scanner.nextLine();
@@ -106,7 +106,7 @@ public class TodoListManager {
         System.out.println("✅ 할 일이 성공적으로 추가되었습니다! (ID: " + newItem.getId() + ")");
     }
     
-    // 3. 할 일 목록 보기/필터링/정렬/상세 보기 통합 기능 (변경 없음)
+    // 3. 할 일 목록 보기/필터링/정렬/상세 보기 통합 기능
     private void viewTodoList() {
         if (todoList.isEmpty()) {
             System.out.println("✨ 할 일 목록이 비어 있습니다. 새로운 할 일을 추가해주세요.");
@@ -149,9 +149,8 @@ public class TodoListManager {
         }
     }
     
-    // 4. 리스트 출력 메서드 (변경 없음)
+    // 4. 리스트 출력 메서드
     private void printList(List<TodoItem> list) {
-        // ... (이전 코드와 동일)
          if (list.isEmpty()) {
             System.out.println("⚠️ 현재 목록에 해당하는 할 일이 없습니다.");
             return;
@@ -163,9 +162,8 @@ public class TodoListManager {
         System.out.println("----------------------------------------------");
     }
 
-    // 5. 상세 보기 메서드 (변경 없음)
+    // 5. 상세 보기 메서드
     private void viewTodoDetail(int id) {
-        // ... (이전 코드와 동일)
         for (TodoItem item : todoList) { 
             if (item.getId() == id) {
                 System.out.println("\n===== ID: " + id + " 상세 정보 =====");
@@ -185,9 +183,8 @@ public class TodoListManager {
         System.out.println("❌ ID [" + id + "]에 해당하는 할 일을 찾을 수 없습니다.");
     }
     
-    // 6. 미완료 필터링 로직 (변경 없음)
+    // 6. 미완료 필터링 로직
     private List<TodoItem> filterPending(List<TodoItem> sourceList) {
-        // ... (이전 코드와 동일)
         List<TodoItem> pendingList = new ArrayList<>();
         for (TodoItem item : sourceList) {
             if (!item.isDone()) {
@@ -198,18 +195,16 @@ public class TodoListManager {
         return pendingList;
     }
     
-    // 7. 정렬 로직 (변경 없음)
+    // 7. 정렬 로직
     private List<TodoItem> sortList(List<TodoItem> sourceList) {
-        // ... (이전 코드와 동일)
         List<TodoItem> sortedList = new ArrayList<>(sourceList);
         Collections.sort(sortedList);
         System.out.println("✅ 마감일 기준으로 정렬되었습니다.");
         return sortedList;
     }
     
-    // 8. 할 일 완료 표시 기능 (변경 없음)
+    // 8. 할 일 완료 표시 기능
     private void markAsDone() {
-        // ... (이전 코드와 동일)
         printList(new ArrayList<>(todoList)); 
         if (todoList.isEmpty()) return;
 
@@ -231,7 +226,7 @@ public class TodoListManager {
         System.out.println("❌ ID [" + id + "]에 해당하는 할 일을 찾을 수 없습니다.");
     }
 
-    // 9. 할 일 삭제 기능 (메인 메뉴 4번) - ⭐ 대폭 수정
+    // 9. 할 일 삭제 기능
     private void deleteTodoItem() {
         if (todoList.isEmpty()) {
             System.out.println("✨ 할 일 목록이 비어 있어 삭제할 항목이 없습니다.");
@@ -246,18 +241,16 @@ public class TodoListManager {
         System.out.println("--------------------------");
         System.out.print("삭제할 할 일의 ID 번호 또는 메뉴 (a, 0)를 입력하세요: ");
         
-        // 문자열 입력 받기
         String deleteChoiceStr = scanner.next().trim().toLowerCase();
-        scanner.nextLine(); // 버퍼 비우기
+        scanner.nextLine();
 
         if (deleteChoiceStr.equals("0")) {
             System.out.println("✅ 삭제를 취소하고 이전 메뉴로 돌아갑니다.");
             return;
-        } else if (deleteChoiceStr.equals("a")) { // 완료된 항목 전체 삭제
+        } else if (deleteChoiceStr.equals("a")) {
             deleteCompletedItems();
             return;
         } else {
-            // ID 번호로 간주하여 개별 삭제 처리
             try {
                 int id = Integer.parseInt(deleteChoiceStr);
                 
@@ -276,11 +269,9 @@ public class TodoListManager {
         }
     }
     
-    // 10. 완료된 항목 전체 삭제 메서드 (새로 추가)
+    // 10. 완료된 항목 전체 삭제 메서드
     private void deleteCompletedItems() {
         int initialSize = todoList.size();
-        
-        // removeIf 메서드를 사용하여 조건에 맞는 항목을 모두 제거 (Java 8 이상 지원)
         boolean removed = todoList.removeIf(TodoItem::isDone);
         
         if (removed) {
@@ -291,13 +282,13 @@ public class TodoListManager {
         }
     }
 
-    // 11. 프로그램 종료 (변경 없음)
+    // 11. 프로그램 종료
     private void exitProgram() {
         System.out.println("프로그램을 종료합니다. 다음에 또 만나요! 👋");
         scanner.close(); 
     }
     
-    // 12. 정수 입력 유틸리티 메서드 (0 입력 시 이전 메뉴로 돌아가기)
+    // 12. 정수 입력 유틸리티 메서드
     private int getIntegerInput(String prompt) {
         System.out.print(prompt);
         while (!scanner.hasNextInt()) {
@@ -312,7 +303,7 @@ public class TodoListManager {
         return input;
     }
     
-    // 13. 정수 입력 유틸리티 메서드 (0을 입력받지 않는 경우)
+    // 13. 정수 입력 유틸리티 메서드
     private int getIntegerInputNotZero(String prompt) {
         System.out.print(prompt);
         while (!scanner.hasNextInt()) {
